@@ -1,5 +1,7 @@
 // Variables declaration and initialization:
 let humanScore = 0, computerScore = 0;
+let display = document.querySelector(".display");
+let buttons = document.querySelectorAll("button");
 
 // The function to return choice made by Computer
 function getComputerChoice(){
@@ -11,65 +13,85 @@ function getComputerChoice(){
     } else if (random3 === 3){
         return "Scissors";
     } else {
-        console.log("Sorry! Couldn't make a choice.");
-    }
-}
-
-// The function to return the choice of User
-function getHumanChoice(){
-    let humanChoice = prompt("Please enter your choice: (Rock, Paper, Scissors)").toLowerCase();
-    humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1);
-    if ( humanChoice == "Rock" || humanChoice == "Paper" || humanChoice == "Scissors") {
-        return humanChoice; 
-    } else {
-        alert("Invalid choice!");
+        alert("Sorry! Couldn't make a choice.");
     }
 }
 
 // The function to play a round and announce a winner! 
 function playRound(humanChoice, computerChoice) {
     if (computerChoice == humanChoice) {
-        console.log("It's a tie!");
+        print("It's a tie! ");
     } else if (humanChoice == "Rock") {
         if (computerChoice == "Paper") {
-            console.log("You lose! Paper beats Rock!");
+            print("You lose! Paper beats Rock! ");
             computerScore++;
         } else {
-            console.log("You Win! Rock beats Scissors!");
+            print("You Win! Rock beats Scissors! ");
             humanScore++;
         }
     } else if (humanChoice == "Paper") {
         if (computerChoice == "Scissors") {
-            console.log("You lose! Scissors beats Paper!");
+            print("You lose! Scissors beats Paper! ");
             computerScore++;
         } else {
-            console.log("You Win! Paper beats Rock!");
+            print("You Win! Paper beats Rock! ");
             humanScore++;
         }
     } else {
         if (computerChoice == "Rock") {
-            console.log("You lose! Rock beats Scissors!");
+            print("You lose! Rock beats Scissors! ");
             computerScore++;
         } else {
-            console.log("You Win! Scissors beats Paper!");
+            print("You Win! Scissors beats Paper! ");
             humanScore++;
         }
     } 
 }
 
-// Function to play the game: 
-function playGame(){
-    let humanSelection = getHumanChoice();
-    let computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);   
+// Check for user's choice 
+buttons.forEach(button => {
+    button.addEventListener("click", function(e){
+        display.textContent = ""; // clear the display result div
+        switch(e.target.id){
+            case "rock":
+                playRound("Rock", getComputerChoice());
+                break;
+            case "paper":
+                playRound("Paper", getComputerChoice());
+                break;
+            case "scissors":
+                playRound("Scissors", getComputerChoice());
+                break;
+            default: 
+                alert("Something went wrong!");
+        }        
+        score();
+        checkWinner();
+    })
+});
+
+// Functions to display text and score
+function print(text){
+    display.textContent += text + " ";
 }
 
-// Let's play the game!
-console.log("You can make a case insensitive choice");
-playGame();
-playGame();
-playGame();
-playGame();
-playGame();
-console.log("Your score: " + humanScore);
-console.log("Computer score: " + computerScore);
+function score(){
+    document.querySelector(".humanScore").textContent = "Your score: " + humanScore;
+    document.querySelector(".computerScore").textContent = "Computer score: " + computerScore;
+}
+
+// Other functions
+function checkWinner(){
+    if(humanScore === 5){
+        restartGame(" Won ");
+    } else if (computerScore === 5){
+        restartGame(" Lose ");
+    }
+}
+
+function restartGame(playerStatus){
+    display.textContent = "";
+    print("You" + playerStatus + "The Game!");
+    humanScore = 0;
+    computerScore = 0;
+}
