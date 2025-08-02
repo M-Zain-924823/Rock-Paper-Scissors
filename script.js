@@ -2,6 +2,7 @@
 let humanScore = 0, computerScore = 0;
 let display = document.querySelector(".display");
 let buttons = document.querySelectorAll("button");
+let winner = document.querySelector(".winner");
 
 // The function to return choice made by Computer
 function getComputerChoice(){
@@ -51,16 +52,18 @@ function playRound(humanChoice, computerChoice) {
 // Check for user's choice 
 buttons.forEach(button => {
     button.addEventListener("click", function(e){
+        let computerChoice = getComputerChoice();
+        winner.textContent = "Computer Choice: " + computerChoice;
         display.textContent = ""; // clear the display result div
         switch(e.target.id){
             case "rock":
-                playRound("Rock", getComputerChoice());
+                playRound("Rock", computerChoice);
                 break;
             case "paper":
-                playRound("Paper", getComputerChoice());
+                playRound("Paper", computerChoice);
                 break;
             case "scissors":
-                playRound("Scissors", getComputerChoice());
+                playRound("Scissors", computerChoice);
                 break;
             default: 
                 alert("Something went wrong!");
@@ -90,7 +93,6 @@ function checkWinner(){
 }
 
 function restartGame(playerStatus){
-    let winner = document.querySelector(".winner");
     winner.textContent = "You" + playerStatus + "The Game!";
     humanScore = 0;
     computerScore = 0;
