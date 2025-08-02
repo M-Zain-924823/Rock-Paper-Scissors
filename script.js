@@ -3,6 +3,8 @@ let humanScore = 0, computerScore = 0;
 let display = document.querySelector(".display");
 let buttons = document.querySelectorAll("button");
 let winner = document.querySelector(".winner");
+let humanColor = document.querySelector(".humanScore");
+let computerColor = document.querySelector(".computerScore");
 
 // The function to return choice made by Computer
 function getComputerChoice(){
@@ -67,7 +69,8 @@ buttons.forEach(button => {
                 break;
             default: 
                 alert("Something went wrong!");
-        }        
+        }
+        whoseWinning();
         score();
         checkWinner();
     })
@@ -96,4 +99,17 @@ function restartGame(playerStatus){
     winner.textContent = "You" + playerStatus + "The Game!";
     humanScore = 0;
     computerScore = 0;
+}
+
+function whoseWinning(){
+    if(humanScore > computerScore){
+        humanColor.style.backgroundColor = "green";
+        computerColor.style.backgroundColor = "red";
+    } else if (computerScore > humanScore){
+        humanColor.style.backgroundColor = "red";
+        computerColor.style.backgroundColor = "green";
+    } else {
+        humanColor.style.backgroundColor = "green";
+        computerColor.style.backgroundColor = "green";
+    }
 }
