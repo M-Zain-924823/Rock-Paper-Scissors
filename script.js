@@ -90,8 +90,8 @@ function checkWinner(){
 }
 
 function restartGame(playerStatus){
-    display.textContent = "";
-    print("You" + playerStatus + "The Game!");
+    let winner = document.querySelector(".winner");
+    winner.textContent = "You" + playerStatus + "The Game!";
     humanScore = 0;
     computerScore = 0;
 }
