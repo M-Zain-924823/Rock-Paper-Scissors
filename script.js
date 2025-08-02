@@ -54,6 +54,7 @@ function playRound(humanChoice, computerChoice) {
 // Check for user's choice 
 buttons.forEach(button => {
     button.addEventListener("click", function(e){
+        winner.style.border = "none";
         let computerChoice = getComputerChoice();
         winner.textContent = "Computer Choice: " + computerChoice;
         display.textContent = ""; // clear the display result div
@@ -90,8 +91,10 @@ function score(){
 function checkWinner(){
     if(humanScore === 5){
         restartGame(" Won ");
+        winner.style.border = "2px dotted green";
     } else if (computerScore === 5){
         restartGame(" Lose ");
+        winner.style.border = "2px dotted red";
     }
 }
 
